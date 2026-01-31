@@ -77,4 +77,7 @@ Genellikle ekranın solunda bulunur ve aracın durumunu (manuel/otonom) gösteri
 ---
 ## 5. Örnek rotalı ve simülasyonun çalıştığı video; kasma sebebi, o an CUDA’nın kullanılmamasıdır.
 
-<video controls src="video/OrnekRotaVideosu.mp4" title="Title"></video>
+<video width="640" height="480" controls>
+  <source src="video/OrnekRotaVideosu.mp4" type="video/mp4">
+  Tarayıcınız video etiketini desteklemiyor.
+</video>
