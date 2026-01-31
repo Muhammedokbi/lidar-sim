@@ -1,21 +1,50 @@
-Harika bir proje dokümantasyonu taslağı. Yazdıklarını, Markdown (`README.md`) formatına uygun, hatalardan arındırılmış, okunabilir ve profesyonel bir yapıya dönüştürdüm.
+Harika, haklısın. Bir önceki LiDAR örneğindeki gibi **Proje Klasör Yapısı**nı ekleyerek ve görsellerin/videoların nerede durduğunu netleştirerek çok daha profesyonel bir yapı hazırladım.
 
-İçerikteki komutları ve dosya yollarını (özellikle `/home/lagaca/...` kısmını) belirttiğin gibi **aynen korudum**, sadece anlatım bozukluklarını ve yazım yanlışlarını düzelttim.
-
-Aşağıdaki kodu kopyalayıp `README.md` dosyanın içine yapıştırabilirsin.
+Aşağıdaki metni kopyalayıp `README.md` dosyana yapıştırabilirsin.
 
 ```markdown
-# Autoware ve AWSIM Kurulum ve Kullanım Rehberi
+# 🚗 Autoware ve AWSIM Otonom Sürüş Simülasyonu
 
-> **Uyarı:** Bu belgedeki bilgiler ve komutlar zamanla güncelleme alabilir ve değişiklik gösterebilir.
+Bu proje, Unity tabanlı **AWSIM** simülatörü ile **Autoware** otonom sürüş yazılımının entegrasyonunu, kurulumunu ve temel kullanımını kapsar.
 
-## 1. AWSIM (Simülasyon Ortamı)
+> ⚠️ **Uyarı:** Bu belgedeki bilgiler, yazılım sürümleri (Unity, ROS 2, Autoware) güncellendikçe değişiklik gösterebilir.
 
-AWSIM, Unity tabanlı bir simülasyon uygulamasıdır. Gerçek hayata ve özellikle Robotaksi senaryolarına en uygun simülasyon ortamını sunar. İçeriği gelecekte Unity üzerinden rahatça değiştirilebilir.
+---
 
-![AWSIM Görüntüsü](awsimgoruntusu.png)
+## 📂 Proje ve Dosya Yapısı
 
-Kurulumu kolaydır ve yeterince dokümantasyonu bulunmaktadır. Çalıştırmak için aşağıdaki komutları kullanabilirsiniz:
+Görsellerin, haritaların ve çalıştırılabilir dosyaların konumu aşağıdaki gibi düzenlenmiştir:
+
+```text
+HOME_DIR (~)/
+├── Downloads/
+│   ├── AWSIM-Demo/                # Simülasyon uygulaması
+│   │   └── AWSIM-Demo.x86_64
+│   └── Shinjuku-Map/              # Harita verileri
+│       └── map/                   # Pointcloud ve Lanelet2 haritaları
+├── autoware/                      # Autoware çalışma alanı (workspace)
+└── dokumantasyon/                 # README görselleri ve videoları
+    ├── awsimgoruntusu.png
+    ├── autowareaçilmaani.png
+    ├── ikisininayniekrandaolduguan.png
+    ├── hepsi.png
+    ├── tools/
+    │   ├── 2DPoseEstimate.png
+    │   ├── 2DGoalPose.png
+    │   ├── serVelocitlimit.png
+    │   ├── stop.png
+    │   └── Auto.png
+    └── gittigianvideosu.mp4
+
+```
+
+---
+
+## 1️⃣ AWSIM (Simülasyon Ortamı)
+
+AWSIM, Unity tabanlı olup gerçek hayata ve özellikle **Robotaksi** senaryolarına en uygun simülasyon ortamını sunar. Açık kaynak yapısı sayesinde içeriği gelecekte değiştirilebilir.
+
+### Başlatma Komutu
 
 ```bash
 cd ~/Downloads/AWSIM-Demo
@@ -25,13 +54,13 @@ cd ~/Downloads/AWSIM-Demo
 
 ---
 
-## 2. Autoware (Otonom Sürüş Yazılımı)
+## 2️⃣ Autoware (Otonom Sürüş Yazılımı)
 
-Autoware, aracı otonom sürüşe en uygun hale getiren yazılımdır. Birden çok ayar dosyası ile desteklenir. Kurulumu ve derlenmesi karmaşık olabilir; ancak kurulumun tamamlandığını varsayarak çalıştırma aşamasına geçiyoruz.
+Autoware, aracı otonom sürüşe hazır hale getiren yazılımdır. Kurulumu karmaşık olsa da, sistemin kurulu olduğu varsayılarak başlatma işlemi aşağıdadır.
 
-Haritanın (Map) Google üzerinden AWSIM'e uygun olarak indirilmiş olması gerekir. (Bu örnekte Shinjuku şehir haritası kullanılmıştır).
+> 📌 **Not:** Harita yolu (Map Path) sisteminizdeki indirilmiş harita konumuna göre düzenlenmelidir.
 
-Çalıştırmak için aşağıdaki komutları kullanın:
+### Başlatma Komutu
 
 ```bash
 cd ~/autoware
@@ -42,45 +71,45 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 
 ---
 
-## 3. Sistemin Başlatılması ve Haberleşme
+## 3️⃣ Entegrasyon ve Haberleşme
 
-Autoware ve AWSIM'in **ayrı terminallerde** açılması gerekir. Açıldıkları andan itibaren birbirleriyle **ROS2** üzerinden haberleşmeye başlarlar.
-
-### Araçlar ve Paneller (Tools)
-
-Üst panelde bulunan araçların açıklamaları aşağıdadır:
-
-**2D Pose Estimate**
-Aracın harita üzerindeki mevcut konumunu ayarlamanızı sağlar.
-
-**2D Goal Pose**
-Aracın gitmesini istediğiniz hedef konumu (rotayı) belirlemenizi sağlar.
-
-### Autoware State Panel (Durum Paneli)
-
-Bu panel genellikle ekranın sol tarafında bulunur. Aracın manuel mi yoksa otonom modda mı olduğunu gösterir. Bizim için önemli olan 3 kısım vardır:
-
-1. **Set Velocity Limit:** Aracın şehir içi hız sınırını ayarlamanızı sağlar.
-2. **Stop:** Başlangıçta seçili olarak gelir, aracın durduğunu belirtir.
-3. **Auto:** Aracı otonom moda alır ve belirlenen rotaya uygun gitmesini sağlar.
+Autoware ve AWSIM'in **iki ayrı terminalde** açılması gerekir. Açıldıkları andan itibaren **ROS 2** üzerinden otomatik olarak haberleşirler.
 
 ---
 
-## 4. Genel Görünüm ve Test
+## 4️⃣ RViz Kullanımı ve Kontrol Panelleri
 
-Tüm sistemlerin aynı ekranda çalıştığı an:
+Araç kontrolü için RViz üzerindeki araçlar ve panellerin anlamları aşağıdadır:
 
-**Otonom Sürüş Test Videosu:**
-Aracın rotada ilerlediği anın videosunu aşağıdan izleyebilirsiniz:
+### 📍 Üst Panel Araçları (Tools)
 
-[Otonom Sürüş Videosu](https://www.google.com/search?q=gittigianvideosu.mp4)
+| Simge | Araç Adı | Açıklama |
+| --- | --- | --- |
+|  | **2D Pose Estimate** | Aracın haritadaki **başlangıç konumunu** eşleştirmek için kullanılır. |
+|  | **2D Goal Pose** | Aracın gitmesini istediğiniz **hedef noktayı** belirler. |
+
+### 🎛️ Autoware State Panel (Durum Paneli)
+
+Genellikle ekranın sol tarafında bulunur.
+
+| Simge | Durum | İşlev |
+| --- | --- | --- |
+|  | **Velocity Limit** | Aracın şehir içi maksimum hız limitini ayarlar. |
+|  | **Stop** | Başlangıçta seçilidir. Aracın durduğunu belirtir. |
+|  | **Auto** | Aracı **otonom moda** alır ve rotayı takip etmesini sağlar. |
+
+---
+
+## 5️⃣ Sonuç ve Demo
+
+Tüm sistemlerin (Simülasyon + Autoware + Görselleştirme) aynı anda çalıştığı genel görünüm:
+
+### 🎥 Otonom Sürüş Testi
+
+Sistemin çalıştığını ve aracın rotayı takip ettiğini gösteren video:
+
+[▶️ Test Videosunu İzle](https://www.google.com/search?q=dokumantasyon/gittigianvideosu.mp4)
 
 ```
-
-### Yaptığım Düzeltmelerin Özeti:
-* **Yazım Hataları:** "simalson" -> "simülasyon", "tapanli" -> "tabanlı", "otonom", "fakan" -> "fakat" gibi kelime hataları düzeltildi.
-* **Anlatım:** Cümleler daha akıcı ve anlaşılır hale getirildi ("sana nasıl açılacağını söylüyorum" yerine daha genel bir dil kullanıldı).
-* **Format:** Başlıklar (`#`, `##`), kod blokları (` ```bash `) ve resim etiketleri (`![Açıklama](dosya.png)`) Markdown standartlarına uygun hale getirildi.
-* **İçerik:** Verdiğin dosya yolları (path) ve dosya isimleri değiştirilmedi.
 
 ```
