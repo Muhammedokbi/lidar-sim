@@ -1,50 +1,22 @@
-Harika, haklısın. Bir önceki LiDAR örneğindeki gibi **Proje Klasör Yapısı**nı ekleyerek ve görsellerin/videoların nerede durduğunu netleştirerek çok daha profesyonel bir yapı hazırladım.
+# Autoware ve AWSIM Kullanım Rehberi
 
-Aşağıdaki metni kopyalayıp `README.md` dosyana yapıştırabilirsin.
+> **Uyarı:** Bu içerik yazılım güncellemelerine bağlı olarak zamanla değişiklik gösterebilir.
 
-```markdown
-# 🚗 Autoware ve AWSIM Otonom Sürüş Simülasyonu
 
-Bu proje, Unity tabanlı **AWSIM** simülatörü ile **Autoware** otonom sürüş yazılımının entegrasyonunu, kurulumunu ve temel kullanımını kapsar.
-
-> ⚠️ **Uyarı:** Bu belgedeki bilgiler, yazılım sürümleri (Unity, ROS 2, Autoware) güncellendikçe değişiklik gösterebilir.
-
----
-
-## 📂 Proje ve Dosya Yapısı
-
-Görsellerin, haritaların ve çalıştırılabilir dosyaların konumu aşağıdaki gibi düzenlenmiştir:
+## Proje Klasör Yapısı
 
 ```text
-HOME_DIR (~)/
-├── Downloads/
-│   ├── AWSIM-Demo/                # Simülasyon uygulaması
-│   │   └── AWSIM-Demo.x86_64
-│   └── Shinjuku-Map/              # Harita verileri
-│       └── map/                   # Pointcloud ve Lanelet2 haritaları
-├── autoware/                      # Autoware çalışma alanı (workspace)
-└── dokumantasyon/                 # README görselleri ve videoları
-    ├── awsimgoruntusu.png
-    ├── autowareaçilmaani.png
-    ├── ikisininayniekrandaolduguan.png
-    ├── hepsi.png
-    ├── tools/
-    │   ├── 2DPoseEstimate.png
-    │   ├── 2DGoalPose.png
-    │   ├── serVelocitlimit.png
-    │   ├── stop.png
-    │   └── Auto.png
-    └── gittigianvideosu.mp4
-
+YAPTIM/
+├─ goruntuler         # README'de kullanılan görseller
+└─ README.md
 ```
 
----
+## 1. AWSIM Nedir?
 
-## 1️⃣ AWSIM (Simülasyon Ortamı)
+AWSIM, Unity tabanlı bir simülasyon uygulamasıdır. Gerçek hayat senaryolarına ve **Robotaksi** konseptine en uygun simülasyon ortamını sunar. Esnek yapısı sayesinde gelecekte içeriği kolayca değiştirilebilir veya geliştirilebilir.
 
-AWSIM, Unity tabanlı olup gerçek hayata ve özellikle **Robotaksi** senaryolarına en uygun simülasyon ortamını sunar. Açık kaynak yapısı sayesinde içeriği gelecekte değiştirilebilir.
-
-### Başlatma Komutu
+**Başlatma Komutları:**
+Terminal üzerinden şu komutlarla çalıştırılır:
 
 ```bash
 cd ~/Downloads/AWSIM-Demo
@@ -52,15 +24,15 @@ cd ~/Downloads/AWSIM-Demo
 
 ```
 
+*Kurulumu kolaydır ve yeterli dokümantasyona sahiptir.*
+
 ---
 
-## 2️⃣ Autoware (Otonom Sürüş Yazılımı)
+## 2. Autoware Nedir?
 
-Autoware, aracı otonom sürüşe hazır hale getiren yazılımdır. Kurulumu karmaşık olsa da, sistemin kurulu olduğu varsayılarak başlatma işlemi aşağıdadır.
+Autoware, aracı otonom sürüşe en uygun hale getiren açık kaynaklı bir yazılımdır. Birçok ayar dosyası ve modül ile desteklenir. Kurulumu ve derlenmesi zahmetli olsa da, hazır bir sistemde şu şekilde başlatılır:
 
-> 📌 **Not:** Harita yolu (Map Path) sisteminizdeki indirilmiş harita konumuna göre düzenlenmelidir.
-
-### Başlatma Komutu
+**Başlatma Komutları:**
 
 ```bash
 cd ~/autoware
@@ -69,47 +41,25 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 
 ```
 
----
-
-## 3️⃣ Entegrasyon ve Haberleşme
-
-Autoware ve AWSIM'in **iki ayrı terminalde** açılması gerekir. Açıldıkları andan itibaren **ROS 2** üzerinden otomatik olarak haberleşirler.
+*Not: Haritanın AWSIM ile uyumlu olarak indirilmiş olması gerekir (Örn: Shinjuku haritası).*
 
 ---
 
-## 4️⃣ RViz Kullanımı ve Kontrol Panelleri
+## 3. Haberleşme ve Kontrol
 
-Araç kontrolü için RViz üzerindeki araçlar ve panellerin anlamları aşağıdadır:
+İki uygulama ayrı terminallerde açılmalıdır. Açıldıkları andan itibaren birbirleriyle **ROS 2 (Robot Operating System)** protokolü üzerinden haberleşirler.
 
-### 📍 Üst Panel Araçları (Tools)
+### Üst Panel Araçları (Tools)
 
-| Simge | Araç Adı | Açıklama |
-| --- | --- | --- |
-|  | **2D Pose Estimate** | Aracın haritadaki **başlangıç konumunu** eşleştirmek için kullanılır. |
-|  | **2D Goal Pose** | Aracın gitmesini istediğiniz **hedef noktayı** belirler. |
+* **2D Pose Estimate:** Aracın harita üzerindeki başlangıç konumunu ayarlamanızı sağlar.
+* **2D Goal Pose:** Aracın gitmesini istediğiniz hedef noktayı (rota sonu) belirler.
 
-### 🎛️ Autoware State Panel (Durum Paneli)
+### Autoware State Panel
 
-Genellikle ekranın sol tarafında bulunur.
+Genellikle ekranın solunda bulunur ve aracın durumunu (manuel/otonom) gösterir. En önemli kontroller şunlardır:
 
-| Simge | Durum | İşlev |
-| --- | --- | --- |
-|  | **Velocity Limit** | Aracın şehir içi maksimum hız limitini ayarlar. |
-|  | **Stop** | Başlangıçta seçilidir. Aracın durduğunu belirtir. |
-|  | **Auto** | Aracı **otonom moda** alır ve rotayı takip etmesini sağlar. |
+* **Set Velocity Limit:** Aracın şehir içi hız sınırını belirlemenizi sağlar.
+* **Stop:** Başlangıçta seçili gelir, aracı durur halde tutar.
+* **Auto:** Aracın otonom modda, belirlenen rotaya uygun şekilde gitmesini sağlar.
 
 ---
-
-## 5️⃣ Sonuç ve Demo
-
-Tüm sistemlerin (Simülasyon + Autoware + Görselleştirme) aynı anda çalıştığı genel görünüm:
-
-### 🎥 Otonom Sürüş Testi
-
-Sistemin çalıştığını ve aracın rotayı takip ettiğini gösteren video:
-
-[▶️ Test Videosunu İzle](https://www.google.com/search?q=dokumantasyon/gittigianvideosu.mp4)
-
-```
-
-```
