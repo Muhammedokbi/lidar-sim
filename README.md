@@ -8,6 +8,17 @@
 ```text
 YAPTIM/
 ├─ goruntuler         # README'de kullanılan görseller
+│   ├─ rviz.png
+│   ├─ kiss_icp.png
+│   ├─ kiss_icp_1.png
+│   ├─ cloudcompare.png
+│   ├─ makas.png
+│   ├─ onay.png
+│   ├─ ornek.png
+│   ├─ ciktiDosyalar.png
+│   ├─ rviz_harita.png
+│   ├─ rviz_harita_yok.png
+│   └─ rviz_harita_var.png
 └─ README.md
 ```
 
