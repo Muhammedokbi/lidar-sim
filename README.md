@@ -8,7 +8,7 @@
 ```text
 YAPTIM/
 ├─ goruntuler         # README'de kullanılan görseller
-│   ├─ rviz.png
+│   ├─ AwsimArayuz.png
 │   ├─ kiss_icp.png
 │   ├─ kiss_icp_1.png
 │   ├─ cloudcompare.png
@@ -34,7 +34,7 @@ cd ~/Downloads/AWSIM-Demo
 ./AWSIM-Demo.x86_64
 
 ```
-
+![alt text](<goruntuler /AwsimArayuz.png>)
 *Kurulumu kolaydır ve yeterli dokümantasyona sahiptir.*
 
 ---
@@ -51,12 +51,19 @@ source install/setup.bash
 ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=/home/lagaca/Downloads/Shinjuku-Map/map
 
 ```
-
+![alt text](<goruntuler /AutowareArayuz.png>)
 *Not: Haritanın AWSIM ile uyumlu olarak indirilmiş olması gerekir (Örn: Shinjuku haritası).*
 
 ---
 
-## 3. Haberleşme ve Kontrol
+## 3. Sonuç olarak, karşınıza bu ekran çıkmalı.
+
+![alt text](<goruntuler /AWSIM-Autoware.png>)
+
+---
+
+
+## 4. Haberleşme ve Kontrol
 
 İki uygulama ayrı terminallerde açılmalıdır. Açıldıkları andan itibaren birbirleriyle **ROS 2 (Robot Operating System)** protokolü üzerinden haberleşirler.
 
@@ -74,3 +81,5 @@ Genellikle ekranın solunda bulunur ve aracın durumunu (manuel/otonom) gösteri
 * **Auto:** Aracın otonom modda, belirlenen rotaya uygun şekilde gitmesini sağlar.
 
 ---
+## 5. Örnek rotalı ve simülasyonun çalıştığı video; kasma sebebi, o an CUDA’nın kullanılmamasıdır.
+<video controls src="goruntuler /OrnekRotaVideosu.mp4" title="Title"></video>
