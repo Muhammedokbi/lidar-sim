@@ -9,16 +9,10 @@
 YAPTIM/
 ├─ goruntuler         # README'de kullanılan görseller
 │   ├─ AwsimArayuz.png
-│   ├─ kiss_icp.png
-│   ├─ kiss_icp_1.png
-│   ├─ cloudcompare.png
-│   ├─ makas.png
-│   ├─ onay.png
-│   ├─ ornek.png
-│   ├─ ciktiDosyalar.png
-│   ├─ rviz_harita.png
-│   ├─ rviz_harita_yok.png
-│   └─ rviz_harita_var.png
+│   ├─ AWSIM-Autoware.png
+│   ├─ AwsimArayuz.png
+├─ video 
+│   ├─ OrnekRotaVideosu.mp4
 └─ README.md
 ```
 
@@ -82,4 +76,5 @@ Genellikle ekranın solunda bulunur ve aracın durumunu (manuel/otonom) gösteri
 
 ---
 ## 5. Örnek rotalı ve simülasyonun çalıştığı video; kasma sebebi, o an CUDA’nın kullanılmamasıdır.
-<video controls src="goruntuler /OrnekRotaVideosu.mp4" title="Title"></video>
+
+<video controls src="video/OrnekRotaVideosu.mp4" title="Title"></video>
